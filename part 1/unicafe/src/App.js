@@ -14,6 +14,12 @@ const App = () => {
   const badHandler =()=>{
     setBad(bad +1);
   }
+  const average =(good,neutral,bad)=>{
+    return (good-bad)/(good+neutral+bad)
+  }
+  const positive =(good,neutral,bad)=>{
+    return good/(good+neutral+bad)
+  }
 
   return (
     <div>
@@ -21,9 +27,12 @@ const App = () => {
       <button onClick={goodHandler}> Good</button>
       <button onClick={neutralHandler}> Neutral</button>
       <button onClick={badHandler}> Bad</button>
+
       <p> Good: {good} </p><br/>
       <p> Neutral: {neutral} </p><br/>
       <p> Bad: {bad} </p><br/>
+      <p> average: {average(good,neutral,bad)}</p><br/>
+      <p> positive: {positive(good,neutral,bad)}</p><br/>
     </div>
   )
 }
