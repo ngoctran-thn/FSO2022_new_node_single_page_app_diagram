@@ -13,7 +13,7 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const anecdotesHandler =()=>{
-    let value = Math.random();
+    let value = Math.floor(Math.random()*6);
     setSelected(value);
     console.log(value);
 
