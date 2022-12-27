@@ -1,4 +1,15 @@
 import { useState } from "react";
+const Mostvote=(props)=>{
+  const vote2 =[...props.vote];
+  const max = Math.max(...vote2)
+  const index = vote2.indexOf(max)
+  return(
+    <div>
+      <p>{props.anecdotes[index]}</p>
+      <p> vote: {max}</p>
+    </div>
+  );
+}
 
 const App = () => {
   const anecdotes = [
@@ -23,17 +34,7 @@ const App = () => {
     newVotes[selected] += 1;
     setVotes(newVotes);
   };
-  const Mostvote=(props)=>{
-    const vote2 =[...props.vote];
-    const max = Math.max(...vote2)
-    const index = vote2.indexOf(max)
-    return(
-      <div>
-        <p>{anecdotes[index]}</p>
-        <p> vote: {max}</p>
-      </div>
-    );
-  }
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
@@ -41,7 +42,7 @@ const App = () => {
       <button onClick={anecdotesHandler}> next anecdotes</button>
       <button onClick={voteHandler}> vote</button>
       <h2> Anecdotes with the most votes</h2>
-      <Mostvote vote={votes}/>
+      <Mostvote vote={votes} anecdotes={anecdotes}/>
     </div>
   );
 };
