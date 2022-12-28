@@ -1,75 +1,75 @@
-
-
-const Header = (props) =>{
+const Header = (props) => {
+  return <p>{props.object.name}</p>;
+};
+const Part = (props) => {
   return (
-  <p>{props.object.name}</p> 
-  )
-    
-  
-  
-}
-const Part = (props) =>{
-  return (
-    <p>{props.part} {props.exc}</p>
-  )
-}
-const sum=(p1,p2,p3)=>{
-  return p1+p2+p3
-}
+    <p>
+      {props.part} {props.exc}
+    </p>
+  );
+};
 
-const Total = (props) =>{
-  const result = sum(props.object.parts[0].exercises, props.object.parts[1].exercises, props.object.parts[2].exercises)
-  return (
-    <p>Total of  {result} exercises</p>
-  )
-}
+const Total = (props) => {
+  const subjects = props.object.parts;
+
+  // const result = subjects.reduce((acc, cur) => {
+  //   return acc + cur.exercises;
+  // }, 0);
+
+  // const result = subjects.reduce((acc, cur) => acc + cur.exercises, 0);
+
+  const result = subjects
+    .map((s) => s.exercises)
+    .reduce((acc, cur) => acc + cur);
+
+  return <p>Total of {result} exercises</p>;
+};
 const Content = (props) => {
   return (
     <div>
-    <Part part={props.object.parts[0].name} exc={props.object.parts[0].exercises}/>
-    <Part part={props.object.parts[1].name} exc={props.object.parts[1].exercises}/>
-    <Part part={props.object.parts[2].name} exc={props.object.parts[2].exercises}/>
+      {props.object.parts.map((parts) => (
+        <Part key={parts.id} part={parts.name} exc={parts.exercises} />
+      ))}
     </div>
-  )
-  }
-const Course=(props)=>{
-  return(
+  );
+};
+const Course = (props) => {
+  return (
     <div>
-      <Header object={props.course}/>
-      <Content object={props.course}/>
-      <Total object={props.course}/>
+      <Header object={props.course} />
+      <Content object={props.course} />
+      <Total object={props.course} />
     </div>
-  )
-}
+  );
+};
 const App = () => {
   const course = {
     id: 1,
-    name: 'Half Stack application development',
+    name: "Half Stack application development",
     parts: [
       {
-        name: 'Fundamentals of React',
+        name: "Fundamentals of React",
         exercises: 10,
-        id: 1
+        id: 1,
       },
       {
-        name: 'Using props to pass data',
+        name: "Using props to pass data",
         exercises: 7,
-        id: 2
+        id: 2,
       },
       {
-        name: 'State of a component',
+        name: "State of a component",
         exercises: 14,
-        id: 3
-      }
-    ]
-  }
+        id: 3,
+      },
+    ],
+  };
 
   return (
     <div>
-      <Course course={course}/>
+      <Course course={course} />
     </div>
   );
-}
-
+};
 
 export default App;
