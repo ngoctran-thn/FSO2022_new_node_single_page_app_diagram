@@ -13,10 +13,14 @@ const Part = (props) =>{
     <p>{props.part} {props.exc}</p>
   )
 }
+const sum=(p1,p2,p3)=>{
+  return p1+p2+p3
+}
 
 const Total = (props) =>{
+  const result = sum(props.object.parts[0].exercises, props.object.parts[1].exercises, props.object.parts[2].exercises)
   return (
-    <p>{props.object.parts[0].exercises}+{props.object.parts[1].exercises}+ {props.object.parts[2].exercises}</p>
+    <p>Total of  {result} exercises</p>
   )
 }
 const Content = (props) => {
