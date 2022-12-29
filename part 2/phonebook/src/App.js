@@ -8,26 +8,14 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [messgae, setMessage] = useState("");
 
-  const checkDuplicate = (element, array) => {
-    let x = true;
-    for (let i = 0; i < array.length; i++) {
-      if (element === array[i].name){
-        x= false
-        break;
-      };
-    }
-    return x;
-  };
-
   const addNameHandler = () => {
-    if (checkDuplicate(newName, persons)) {
+    if (persons.some((e) => e.name === newName)) {
       const newPersons = [...persons];
       newPersons.push({ name: newName });
       setPersons(newPersons);
-    }else{
-      setMessage(`${newName} is already added in Phonebook`)
+    } else {
+      setMessage(`${newName} is already added in Phonebook`);
     }
-   
     setNewName("");
   };
 
