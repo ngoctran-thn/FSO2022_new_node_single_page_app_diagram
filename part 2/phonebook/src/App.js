@@ -6,6 +6,7 @@ const Numbers = (props) => {
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
   const [messgae, setMessage] = useState("");
 
   const addNameHandler = () => {
@@ -13,7 +14,8 @@ const App = () => {
       setMessage(`${newName} is already added in Phonebook`);
     } else {
       const newPersons = [...persons];
-      newPersons.push({ name: newName });
+      const new1 = String(newName + " " + newNumber)
+      newPersons.push({ name: new1 });
       setPersons(newPersons);
     }
     setNewName("");
@@ -24,10 +26,17 @@ const App = () => {
     setNewName(event.target.value);
   };
 
+  const handleNumberChange = (event) => {
+    console.log(event.target.value);
+    setNewNumber(event.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
-      name: <input value={newName} onChange={handleNameChange} />
+    
+      name: <input value={newName} onChange={handleNameChange} /><br/>
+      Number: <input value={newNumber} onChange={handleNumberChange} /><br/>
       <button type="submit" onClick={addNameHandler}>
         add
       </button>
