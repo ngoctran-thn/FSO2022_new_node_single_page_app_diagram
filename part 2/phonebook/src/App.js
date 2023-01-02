@@ -10,11 +10,11 @@ const App = () => {
 
   const addNameHandler = () => {
     if (persons.some((e) => e.name === newName)) {
+      setMessage(`${newName} is already added in Phonebook`);
+    } else {
       const newPersons = [...persons];
       newPersons.push({ name: newName });
       setPersons(newPersons);
-    } else {
-      setMessage(`${newName} is already added in Phonebook`);
     }
     setNewName("");
   };
