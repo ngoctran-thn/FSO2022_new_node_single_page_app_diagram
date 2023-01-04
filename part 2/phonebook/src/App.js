@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Persons = (props) => {
   return (
@@ -71,9 +71,17 @@ const PersonForm = (props) => {
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-  
   const [personToShow, setPersonToShow] = useState([]);
-  
+
+  useEffect(() => {
+    fetch("http://localhost:3001/persons")
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        setPersons(data);
+        setPersonToShow(data);
+      });
+  }, []);
 
   const onFilter = (searchString) => {
     setPersonToShow(
@@ -88,7 +96,11 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter onFilter={onFilter} />
       <h2> Add a new</h2>
-      <PersonForm  persons={persons} setPersons={setPersons} setPersonToShow={setPersonToShow} />
+      <PersonForm
+        persons={persons}
+        setPersons={setPersons}
+        setPersonToShow={setPersonToShow}
+      />
       <h2>Numbers</h2>
       <ul>
         {personToShow.map((person) => (
