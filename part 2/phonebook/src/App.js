@@ -22,47 +22,59 @@ const Filter = (props) => {
   return (
     <div>
       Filter shown with :{" "}
-      <input />
+      <input value={searchString} onChange={handleSearchString} />
       <br />
     </div>
   );
 };
 
-const PersonForm = () => {};
-
-const App = () => {
-  const [persons, setPersons] = useState([]);
+const PersonForm = (props) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [personToShow, setPersonToShow] = useState([]);
-  const [messgae, setMessage] = useState("");
-
+  const [message, setMessage] = useState("");
+  const handleNameChange = (event) => {
+    // console.log(event.target.value);
+    setNewName(event.target.value);
+  };
+  const handleNumberChange = (event) => {
+    // console.log(event.target.value);
+    setNewNumber(event.target.value);
+  };
   const addNameHandler = () => {
-    if (persons.some((e) => e.name === newName)) {
+    if (props.persons.some((e) => e.name === newName)) {
       setMessage(`${newName} is already added in Phonebook`);
     } else {
-      const newPersons = [...persons];
+      const newPersons = [...props.persons];
       newPersons.push({ name: newName, number: newNumber });
-      setPersons(newPersons);
-      setPersonToShow(newPersons)
+      props.setPersons(newPersons);
+      props.setPersonToShow(newPersons);
     }
     setNewName("");
     setNewNumber("");
   };
 
-  console.log(persons);
+  return (
+    <div>
+      name: <input value={newName} onChange={handleNameChange} />
+      <br />
+      Number: <input value={newNumber} onChange={handleNumberChange} />
+      <br />
+      <button type="submit" onClick={addNameHandler}>
+        add
+      </button>
+      <div>
+        <p>{message}</p>
+      </div>
+    </div>
+  );
+};
 
-  const handleNameChange = (event) => {
-    // console.log(event.target.value);
-    setNewName(event.target.value);
-  };
-
-  const handleNumberChange = (event) => {
-    // console.log(event.target.value);
-    setNewNumber(event.target.value);
-  };
-
+const App = () => {
+  const [persons, setPersons] = useState([]);
   
+  const [personToShow, setPersonToShow] = useState([]);
+  
+
   const onFilter = (searchString) => {
     setPersonToShow(
       searchString === ""
@@ -76,16 +88,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <Filter onFilter={onFilter} />
       <h2> Add a new</h2>
-      name: <input value={newName} onChange={handleNameChange} />
-      <br />
-      Number: <input value={newNumber} onChange={handleNumberChange} />
-      <br />
-      <button type="submit" onClick={addNameHandler}>
-        add
-      </button>
-      <div>
-        <p>{messgae}</p>
-      </div>
+      <PersonForm  persons={persons} setPersons={setPersons} setPersonToShow={setPersonToShow} />
       <h2>Numbers</h2>
       <ul>
         {personToShow.map((person) => (
